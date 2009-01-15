@@ -277,22 +277,27 @@ module HoptoadNotifier
     end
     
     def clean_hoptoad_params params #:nodoc:
-      params.each do |k, v|
-        params[k] = "[FILTERED]" if HoptoadNotifier.params_filters.any? do |filter|
-          k.to_s.match(/#{filter}/)
+      clean_non_serializable_data do
+        params.each do |k, v|
+          params[k] = "[FILTERED]" if HoptoadNotifier.params_filters.any? do |filter|
+            k.to_s.match(/#{filter}/)
+          end
         end
-      end
+      end  
     end
     
     def clean_hoptoad_environment env #:nodoc:
-      env.each do |k, v|
-        env[k] = "[FILTERED]" if HoptoadNotifier.environment_filters.any? do |filter|
-          k.to_s.match(/#{filter}/)
+      clean_non_serializable_data do
+        env.each do |k, v|
+          env[k] = "[FILTERED]" if HoptoadNotifier.environment_filters.any? do |filter|
+            k.to_s.match(/#{filter}/)
+          end
         end
-      end
+      end  
     end
 
-    def clean_non_serializable_data(notice) #:nodoc:
+    def clean_non_serializable_data(notice = nil) #:nodoc:
+      notice = yield if block_given?
       notice.select{|k,v| serializable?(v) }.inject({}) do |h, pair|
         h[pair.first] = pair.last.is_a?(Hash) ? clean_non_serializable_data(pair.last) : pair.last
         h
