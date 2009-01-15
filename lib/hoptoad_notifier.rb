@@ -196,7 +196,7 @@ module HoptoadNotifier
           :rails_root  => File.expand_path(RAILS_ROOT),
           :url         => "#{request.protocol}#{request.host}#{request.request_uri}"
         }
-        data[:environment].merge!(request.env.to_hash)
+        #data[:environment].merge!(request.env.to_hash)
       end
 
       if self.respond_to? :session
