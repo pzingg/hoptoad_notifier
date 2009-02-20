@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "hoptoad_notifier"
   s.version  = "1.1.1"
-  s.date     = "2008-12-31"
+  s.date     = "2009-02-19"
   s.summary  = "Rails plugin that reports exceptions to Hoptoad."
   s.email    = "info@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/hoptoad_notifier"
