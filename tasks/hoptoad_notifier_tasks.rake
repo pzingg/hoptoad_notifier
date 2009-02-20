@@ -5,6 +5,10 @@ namespace :hoptoad do
     require 'application_controller'
 
     request = ActionController::TestRequest.new
+    request.query_parameters = {
+      'action' => 'verify',
+      'controller' => 'hoptoad_verification'
+    }
 
     response = ActionController::TestResponse.new
 
